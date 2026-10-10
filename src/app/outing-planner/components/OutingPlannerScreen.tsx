@@ -5,7 +5,7 @@ import PlannerStepOne from './PlannerStepOne';
 import PlannerStepTwo from './PlannerStepTwo';
 import PlannerItinerary from './PlannerItinerary';
 import type { PlannerFormData, GeneratedItinerary } from './plannerTypes';
-import { generateItinerary } from './itineraryEngine';
+import { generateItinerary } from './iteneraryEngine';
 
 const STEPS = [
   { id: 1, label: 'Your Preferences', icon: Users },

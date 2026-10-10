@@ -11,7 +11,7 @@ import {
 import type { GeneratedItinerary, PlannerFormData, ItineraryStop } from './plannerTypes';
 import CostBreakdownChart from './CostBreakdownChart';
 import BudgetTracker from './BudgetTracker';
-import ItineraryChatbot from './ItineraryChatbot';
+import ItineraryChatbot from './IteneraryChatbot';
 import { PLACES } from '@/lib/mockData';
 
 interface Props {
