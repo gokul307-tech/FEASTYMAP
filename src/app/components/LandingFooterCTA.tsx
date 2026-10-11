@@ -19,7 +19,7 @@ export default function LandingFooterCTA() {
               Ready for your next perfect outing?
             </h2>
             <p className="text-white/80 text-lg max-w-xl mx-auto mb-8">
-              Tell us your budget, vibe, and group size — we'll build the itinerary in seconds.
+              Tell us your budget, vibe, and group size — we&apos;ll build the itinerary in seconds.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link

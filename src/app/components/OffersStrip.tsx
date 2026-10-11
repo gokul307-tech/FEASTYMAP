@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import AppImage from '@/components/ui/AppImage';
 import { Tag, Clock, ArrowRight } from 'lucide-react';
-import { OFFERS } from '@/lib/mockData';
+import { DATA_NOTICE, OFFERS } from '@/lib/mockData';
 import { CategoryBadge } from '@/components/ui/Badge';
 
 export default function OffersStrip() {
@@ -15,15 +15,11 @@ export default function OffersStrip() {
             <div className="flex items-center gap-2 mb-2">
               <Tag size={15} className="text-accent" />
               <p className="text-xs font-semibold text-accent uppercase tracking-widest">
-                Live Offers
+                Sample Offers
               </p>
             </div>
-            <h2 className="text-3xl font-bold text-foreground">
-              Deals happening right now
-            </h2>
-            <p className="mt-1 text-muted-foreground text-sm">
-              Offers expire fast — grab them before they're gone.
-            </p>
+            <h2 className="text-3xl font-bold text-foreground">Example deals and promotions</h2>
+            <p className="mt-1 text-muted-foreground text-sm">{DATA_NOTICE}</p>
           </div>
           <Link
             href="/interactive-map"

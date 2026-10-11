@@ -16,13 +16,15 @@ export default function SiteFooter() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Smart city exploration and outing planning for Chennai's urban explorers.
+              Smart city exploration and outing planning for Chennai&apos;s urban explorers.
             </p>
           </div>
 
           {/* Explore */}
           <div>
-            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">Explore</h4>
+            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
+              Explore
+            </h4>
             <ul className="space-y-2">
               {[
                 { href: '/', label: 'Home' },
@@ -30,7 +32,10 @@ export default function SiteFooter() {
                 { href: '/outing-planner', label: 'Outing Planner' },
               ]?.map((l) => (
                 <li key={`footer-${l?.href}`}>
-                  <Link href={l?.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href={l?.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     {l?.label}
                   </Link>
                 </li>
@@ -40,7 +45,9 @@ export default function SiteFooter() {
 
           {/* Discover */}
           <div>
-            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">Discover</h4>
+            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
+              Discover
+            </h4>
             <ul className="space-y-2">
               {['Trending Spots', 'Live Offers', 'Upcoming Events', 'Hidden Gems']?.map((item) => (
                 <li key={`footer-disc-${item}`}>
@@ -52,9 +59,20 @@ export default function SiteFooter() {
 
           {/* City */}
           <div>
-            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">Areas Covered</h4>
+            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wider">
+              Areas Covered
+            </h4>
             <div className="flex flex-wrap gap-2">
-              {['Nungambakkam', 'T. Nagar', 'Velachery', 'Alwarpet', 'Teynampet', 'Anna Nagar', 'Adyar', 'Mylapore']?.map((area) => (
+              {[
+                'Nungambakkam',
+                'T. Nagar',
+                'Velachery',
+                'Alwarpet',
+                'Teynampet',
+                'Anna Nagar',
+                'Adyar',
+                'Mylapore',
+              ]?.map((area) => (
                 <span
                   key={`footer-area-${area}`}
                   className="px-2 py-0.5 rounded-full bg-muted text-muted-foreground text-2xs font-medium"

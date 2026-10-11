@@ -15,32 +15,44 @@ interface MapCanvasProps {
 const PLACE_COORDS: Record<string, [number, number]> = {
   'place-001': [13.0569, 80.2425], // Amara Brew House - Nungambakkam
   'place-002': [13.0418, 80.2341], // Murugan Idli Shop - T.Nagar
-  'place-003': [13.0524, 80.2120], // Phoenix MarketCity - Velachery area
+  'place-003': [13.0524, 80.212], // Phoenix MarketCity - Velachery area
   'place-004': [13.0674, 80.2376], // The Jazz Lounge - Periamet
   'place-005': [13.0358, 80.2108], // Velachery Park
-  'place-006': [13.0500, 80.2800], // Marina Beach area
-  'place-007': [13.0600, 80.2200], // Poes Garden area
-  'place-008': [13.0450, 80.2500], // Teynampet area
-  'place-009': [13.0700, 80.2600], // Parrys area
-  'place-010': [13.0380, 80.2450], // T.Nagar area
-  'place-011': [13.0620, 80.2150], // Nungambakkam area
-  'place-012': [13.0480, 80.2350], // Anna Nagar area
+  'place-006': [13.05, 80.28], // Marina Beach area
+  'place-007': [13.06, 80.22], // Poes Garden area
+  'place-008': [13.045, 80.25], // Teynampet area
+  'place-009': [13.07, 80.26], // Parrys area
+  'place-010': [13.038, 80.245], // T.Nagar area
+  'place-011': [13.062, 80.215], // Nungambakkam area
+  'place-012': [13.048, 80.235], // Anna Nagar area
 };
 
 // Default center: Chennai
 const DEFAULT_CENTER: [number, number] = [13.0827, 80.2707];
 const DEFAULT_ZOOM = 13;
 
-export default function MapCanvas({ places, selectedPlace, onSelectPlace, activeTimeSlot }: MapCanvasProps) {
+export default function MapCanvas({
+  places,
+  selectedPlace,
+  onSelectPlace,
+  activeTimeSlot,
+}: MapCanvasProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
   const userMarkerRef = useRef<any>(null);
   const isInitializingRef = useRef(false);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
-  const [locationStatus, setLocationStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [locationStatus, setLocationStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
+    'idle'
+  );
   const [locationError, setLocationError] = useState<string>('');
-  const [mapBounds, setMapBounds] = useState<{ north: number; south: number; east: number; west: number } | null>(null);
+  const [mapBounds, setMapBounds] = useState<{
+    north: number;
+    south: number;
+    east: number;
+    west: number;
+  } | null>(null);
   const [visibleCount, setVisibleCount] = useState(places.length);
 
   // Assign real coords to places (fallback to spread around default center)
@@ -84,7 +96,8 @@ export default function MapCanvas({ places, selectedPlace, onSelectPlace, active
 
         // OpenStreetMap tiles (free, no API key)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          attribution:
+            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           maxZoom: 19,
         }).addTo(map);
 
@@ -140,7 +153,9 @@ export default function MapCanvas({ places, selectedPlace, onSelectPlace, active
       },
       (err) => {
         setLocationStatus('error');
-        setLocationError(err.code === 1 ? 'Location access denied.' : 'Could not get your location.');
+        setLocationError(
+          err.code === 1 ? 'Location access denied.' : 'Could not get your location.'
+        );
       },
       { timeout: 10000, enableHighAccuracy: true }
     );
@@ -226,22 +241,36 @@ export default function MapCanvas({ places, selectedPlace, onSelectPlace, active
               display:flex;align-items:center;justify-content:center;
               font-size:14px;
             ">
-              ${place.category === 'cafe' ? '☕' :
-                place.category === 'restaurant' ? '🍽️' :
-                place.category === 'mall' ? '🛍️' :
-                place.category === 'park' ? '🌳' :
-                place.category === 'bar' ? '🍺' :
-                place.category === 'event' ? '🎭' :
-                place.category === 'dessert' ? '🍰' : '🥘'}
+              ${
+                place.category === 'cafe'
+                  ? '☕'
+                  : place.category === 'restaurant'
+                    ? '🍽️'
+                    : place.category === 'mall'
+                      ? '🛍️'
+                      : place.category === 'park'
+                        ? '🌳'
+                        : place.category === 'bar'
+                          ? '🍺'
+                          : place.category === 'event'
+                            ? '🎭'
+                            : place.category === 'dessert'
+                              ? '🍰'
+                              : '🥘'
+              }
             </div>
             <div style="width:2px;height:8px;background:${cfg.dotColor};margin-top:1px;border-radius:1px;"></div>
-            ${place.trendingScore >= 85 ? `<div style="
+            ${
+              place.trendingScore >= 85
+                ? `<div style="
               position:absolute;top:-4px;right:-4px;
               width:14px;height:14px;border-radius:50%;
               background:#f97316;border:1.5px solid white;
               display:flex;align-items:center;justify-content:center;
               font-size:8px;color:white;
-            ">⚡</div>` : ''}
+            ">⚡</div>`
+                : ''
+            }
           </div>
         `;
 
@@ -253,9 +282,7 @@ export default function MapCanvas({ places, selectedPlace, onSelectPlace, active
           popupAnchor: [0, -46],
         });
 
-        const marker = L.marker(coords, { icon })
-          .addTo(mapRef.current)
-          .bindPopup(`
+        const marker = L.marker(coords, { icon }).addTo(mapRef.current).bindPopup(`
             <div style="min-width:180px;font-family:inherit;">
               <p style="font-weight:700;font-size:14px;margin:0 0 4px;">${place.name}</p>
               <p style="font-size:12px;color:#6b7280;margin:0 0 4px;">${place.area} · ${cfg.label}</p>
@@ -329,8 +356,11 @@ export default function MapCanvas({ places, selectedPlace, onSelectPlace, active
             <MapPin size={16} className="text-primary" />
           )}
           <span className="hidden sm:inline">
-            {locationStatus === 'loading' ? 'Locating…' :
-             locationStatus === 'success'? 'Near You' : 'Near Me'}
+            {locationStatus === 'loading'
+              ? 'Locating…'
+              : locationStatus === 'success'
+                ? 'Near You'
+                : 'Near Me'}
           </span>
         </button>
 
@@ -350,7 +380,10 @@ export default function MapCanvas({ places, selectedPlace, onSelectPlace, active
             const cfg = CATEGORY_CONFIG[cat];
             return (
               <div key={`legend-${cat}`} className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: cfg.dotColor }} />
+                <div
+                  className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: cfg.dotColor }}
+                />
                 <span className="text-xs text-gray-600 dark:text-gray-400">{cfg.label}</span>
               </div>
             );

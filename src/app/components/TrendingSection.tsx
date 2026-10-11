@@ -19,9 +19,7 @@ export default function TrendingSection() {
                 Trending Now
               </p>
             </div>
-            <h2 className="text-3xl font-bold text-foreground">
-              What the city is loving
-            </h2>
+            <h2 className="text-3xl font-bold text-foreground">What the city is loving</h2>
             <p className="mt-1 text-muted-foreground text-sm">
               Ranked by visits, saves, and community ratings — updated hourly.
             </p>
