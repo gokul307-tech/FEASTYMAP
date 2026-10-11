@@ -29,15 +29,30 @@ const TIME_GREETINGS: Record<string, { greeting: string; emoji: string; subtitle
 const STAT_ITEMS = [
   { value: '2,400+', label: 'Places Listed' },
   { value: '18 Areas', label: 'Across Chennai' },
-  { value: '340+', label: 'Live Offers' },
+  { value: '340+', label: 'Sample Offers' },
   { value: '4.8★', label: 'Avg Rating' },
 ];
 
 const FLOATING_TAGS = [
-  { label: 'Live Jazz Tonight', color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300', x: '8%', y: '28%' },
+  {
+    label: 'Live Jazz Tonight',
+    color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300',
+    x: '8%',
+    y: '28%',
+  },
   { label: '₹500 off at Phoenix', color: 'bg-accent/10 text-accent', x: '72%', y: '18%' },
-  { label: '🌅 Rooftop Sunrise Café', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300', x: '80%', y: '62%' },
-  { label: 'Hidden Gem 💎', color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300', x: '5%', y: '68%' },
+  {
+    label: '🌅 Rooftop Sunrise Café',
+    color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300',
+    x: '80%',
+    y: '62%',
+  },
+  {
+    label: 'Hidden Gem 💎',
+    color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
+    x: '5%',
+    y: '68%',
+  },
 ];
 
 export default function HeroSection() {
@@ -89,8 +104,8 @@ export default function HeroSection() {
           </h1>
 
           <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-xl">
-            {greet.subtitle}
-            {' '}Stop switching between Maps, Instagram, and food apps — FEASTYmap has it all.
+            {greet.subtitle} Stop switching between Maps, Instagram, and food apps — FEASTYmap has
+            it all.
           </p>
 
           {/* CTAs */}
@@ -116,8 +131,12 @@ export default function HeroSection() {
           <div className="flex flex-wrap items-center gap-6 sm:gap-8">
             {STAT_ITEMS.map((stat) => (
               <div key={`stat-${stat.label}`} className="flex flex-col">
-                <span className="font-mono-data text-2xl font-bold text-foreground">{stat.value}</span>
-                <span className="text-xs text-muted-foreground font-medium mt-0.5">{stat.label}</span>
+                <span className="font-mono-data text-2xl font-bold text-foreground">
+                  {stat.value}
+                </span>
+                <span className="text-xs text-muted-foreground font-medium mt-0.5">
+                  {stat.label}
+                </span>
               </div>
             ))}
           </div>

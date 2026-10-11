@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import AppImage from '@/components/ui/AppImage';
 import { Calendar, Clock, MapPin, Ticket, ArrowRight } from 'lucide-react';
-import { EVENTS } from '@/lib/mockData';
+import { DATA_NOTICE, EVENTS } from '@/lib/mockData';
 
 export default function EventsSection() {
   return (
@@ -14,13 +14,12 @@ export default function EventsSection() {
             <div className="flex items-center gap-2 mb-2">
               <Calendar size={15} className="text-indigo-600" />
               <p className="text-xs font-semibold text-indigo-600 uppercase tracking-widest">
-                Upcoming Events
+                Sample Events
               </p>
             </div>
-            <h2 className="text-3xl font-bold text-foreground">
-              What's on this week
-            </h2>
+            <h2 className="text-3xl font-bold text-foreground">Example events and activities</h2>
           </div>
+          <p className="mt-1 text-muted-foreground text-sm">{DATA_NOTICE}</p>
           <Link
             href="/interactive-map"
             className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"

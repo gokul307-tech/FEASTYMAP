@@ -30,9 +30,9 @@ const FEATURES = [
     icon: Tag,
     color: 'text-amber-600',
     bg: 'bg-amber-100 dark:bg-amber-900/20',
-    title: 'Live Offers',
+    title: 'Sample Offers',
     description:
-      'Real-time deals from local businesses — happy hours, weekend specials, and flash discounts aggregated in one feed.',
+      'Example deals from local businesses — replace the sample feed with a live data service before launch.',
     span: 'lg:col-span-1',
     accent: 'from-amber-50 to-amber-100/50 dark:from-amber-900/10 dark:to-amber-900/20',
   },
@@ -84,7 +84,8 @@ export default function FeatureStrip() {
             Everything you need for a perfect outing
           </h2>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-            No more switching between 5 apps. FEASTYmap brings your city&apos;s best into one smart, beautiful experience.
+            No more switching between 5 apps. FEASTYmap brings your city&apos;s best into one smart,
+            beautiful experience.
           </p>
         </div>
 
@@ -98,7 +99,9 @@ export default function FeatureStrip() {
               {/* Decorative circle */}
               <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full opacity-10 bg-current" />
 
-              <div className={`w-12 h-12 rounded-xl ${feat?.bg} flex items-center justify-center mb-5 shadow-sm`}>
+              <div
+                className={`w-12 h-12 rounded-xl ${feat?.bg} flex items-center justify-center mb-5 shadow-sm`}
+              >
                 <feat.icon size={22} className={feat?.color} />
               </div>
               <h3 className="text-lg font-bold text-foreground mb-2.5">{feat?.title}</h3>
