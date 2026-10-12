@@ -5,8 +5,16 @@ import AppImage from '@/components/ui/AppImage';
 import { CategoryBadge, StatusBadge, PriceBadge } from '@/components/ui/Badge';
 import StarRating from '@/components/ui/StarRating';
 import {
-  X, MapPin, Clock, Car, Users, Accessibility, Route,
-  Tag, Star, ChevronRight,
+  X,
+  MapPin,
+  Clock,
+  Car,
+  Users,
+  Accessibility,
+  Route,
+  Tag,
+  Star,
+  ChevronRight,
 } from 'lucide-react';
 import type { Place } from '@/lib/mockData';
 
@@ -55,7 +63,9 @@ export default function PlaceDetailPopup({ place, onClose }: PlaceDetailPopupPro
         {/* Address */}
         <div className="flex items-start gap-2 text-muted-foreground">
           <MapPin size={13} className="mt-0.5 flex-shrink-0" />
-          <span className="text-xs leading-snug">{place.address}, {place.area}</span>
+          <span className="text-xs leading-snug">
+            {place.address}, {place.area}
+          </span>
         </div>
 
         {/* Hours */}
@@ -66,15 +76,21 @@ export default function PlaceDetailPopup({ place, onClose }: PlaceDetailPopupPro
 
         {/* Amenities */}
         <div className="flex items-center gap-3">
-          <div className={`flex items-center gap-1 text-xs font-medium ${place.parkingAvailable ? 'text-positive' : 'text-muted-foreground'}`}>
+          <div
+            className={`flex items-center gap-1 text-xs font-medium ${place.parkingAvailable ? 'text-positive' : 'text-muted-foreground'}`}
+          >
             <Car size={12} />
             <span>{place.parkingAvailable ? 'Parking' : 'No Parking'}</span>
           </div>
-          <div className={`flex items-center gap-1 text-xs font-medium ${place.familyFriendly ? 'text-positive' : 'text-muted-foreground'}`}>
+          <div
+            className={`flex items-center gap-1 text-xs font-medium ${place.familyFriendly ? 'text-positive' : 'text-muted-foreground'}`}
+          >
             <Users size={12} />
             <span>{place.familyFriendly ? 'Family OK' : 'Adults only'}</span>
           </div>
-          <div className={`flex items-center gap-1 text-xs font-medium ${place.wheelchairAccessible ? 'text-positive' : 'text-muted-foreground'}`}>
+          <div
+            className={`flex items-center gap-1 text-xs font-medium ${place.wheelchairAccessible ? 'text-positive' : 'text-muted-foreground'}`}
+          >
             <Accessibility size={12} />
             <span>{place.wheelchairAccessible ? 'Accessible' : 'Limited'}</span>
           </div>
@@ -93,7 +109,8 @@ export default function PlaceDetailPopup({ place, onClose }: PlaceDetailPopupPro
           <div className="flex items-center gap-2">
             <Star size={12} className="text-amber-500 fill-amber-500" />
             <span className="text-xs text-muted-foreground">
-              Signature: <span className="font-semibold text-foreground">{place.signatureItem}</span>
+              Signature:{' '}
+              <span className="font-semibold text-foreground">{place.signatureItem}</span>
             </span>
           </div>
         )}

@@ -1,13 +1,28 @@
 'use client';
 import React, { useState, useCallback } from 'react';
 import { Search, SlidersHorizontal, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { PLACES, CATEGORY_CONFIG, TIME_SLOT_CONFIG, getCurrentTimeSlot } from '@/lib/mockData';
+import {
+  DATA_NOTICE,
+  PLACES,
+  CATEGORY_CONFIG,
+  TIME_SLOT_CONFIG,
+  getCurrentTimeSlot,
+} from '@/lib/mockData';
 import type { Place, Category, TimeSlot } from '@/lib/mockData';
 import MapCanvas from './MapCanvas';
 import PlaceSidebar from './PlaceSidebar';
 import PlaceDetailPopup from './PlaceDetailPopup';
 
-const ALL_CATEGORIES: Category[] = ['cafe', 'restaurant', 'mall', 'park', 'event', 'bar', 'dessert', 'street_food'];
+const ALL_CATEGORIES: Category[] = [
+  'cafe',
+  'restaurant',
+  'mall',
+  'park',
+  'event',
+  'bar',
+  'dessert',
+  'street_food',
+];
 
 export default function MapScreen() {
   const [activeTimeSlot, setActiveTimeSlot] = useState<TimeSlot>(getCurrentTimeSlot());
@@ -46,6 +61,9 @@ export default function MapScreen() {
 
   return (
     <div className="flex h-full relative">
+      <div className="absolute top-3 left-1/2 z-20 -translate-x-1/2 rounded-lg border border-warning/30 bg-warning-bg px-3 py-2 text-center text-xs text-warning shadow-sm">
+        {DATA_NOTICE}
+      </div>
       {/* Sidebar toggle on mobile */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -78,7 +96,10 @@ export default function MapScreen() {
           {/* Search */}
           <div className="p-4 border-b border-border">
             <div className="relative">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Search
+                size={15}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+              />
               <input
                 type="text"
                 placeholder="Search places, areas..."
@@ -169,8 +190,8 @@ export default function MapScreen() {
           <div className="px-4 py-2 bg-muted/30 border-b border-border">
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground">
-                <span className="font-semibold text-foreground">{filteredPlaces.length}</span> places this{' '}
-                {activeTimeSlot}
+                <span className="font-semibold text-foreground">{filteredPlaces.length}</span>{' '}
+                places this {activeTimeSlot}
               </span>
               <SlidersHorizontal size={12} className="text-muted-foreground" />
             </div>

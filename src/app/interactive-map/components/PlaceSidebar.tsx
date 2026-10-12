@@ -62,11 +62,15 @@ function PlaceToastCard({ place, onClose }: { place: Place; onClose: () => void 
             <IndianRupee size={11} />
             <span>₹{place.avgCostForTwo.toLocaleString()} for 2</span>
           </div>
-          <div className={`flex items-center gap-1.5 text-xs font-medium ${place.parkingAvailable ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
+          <div
+            className={`flex items-center gap-1.5 text-xs font-medium ${place.parkingAvailable ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}
+          >
             <Car size={11} />
             <span>{place.parkingAvailable ? 'Parking ✓' : 'No parking'}</span>
           </div>
-          <div className={`flex items-center gap-1.5 text-xs font-medium ${place.familyFriendly ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
+          <div
+            className={`flex items-center gap-1.5 text-xs font-medium ${place.familyFriendly ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}
+          >
             <Users size={11} />
             <span>{place.familyFriendly ? 'Family OK' : 'Adults only'}</span>
           </div>
@@ -83,7 +87,8 @@ function PlaceToastCard({ place, onClose }: { place: Place; onClose: () => void 
           <div className="flex items-center gap-1.5">
             <Star size={11} className="text-amber-500 fill-amber-500" />
             <span className="text-xs text-muted-foreground">
-              Signature: <span className="font-semibold text-foreground">{place.signatureItem}</span>
+              Signature:{' '}
+              <span className="font-semibold text-foreground">{place.signatureItem}</span>
             </span>
           </div>
         )}
@@ -119,9 +124,7 @@ export default function PlaceSidebar({ places, selectedPlace, onSelectPlace }: P
             Try changing the time slot or enabling more categories.
           </p>
         </div>
-        {toastPlace && (
-          <PlaceToastCard place={toastPlace} onClose={() => setToastPlace(null)} />
-        )}
+        {toastPlace && <PlaceToastCard place={toastPlace} onClose={() => setToastPlace(null)} />}
       </>
     );
   }
@@ -136,8 +139,7 @@ export default function PlaceSidebar({ places, selectedPlace, onSelectPlace }: P
               key={place.id}
               onClick={() => handleSelectPlace(isSelected ? null : place)}
               className={`w-full text-left flex gap-3 p-4 border-b border-border transition-all duration-150 ${
-                isSelected
-                  ? 'bg-primary/8 border-l-2 border-l-primary' :'hover:bg-muted/50'
+                isSelected ? 'bg-primary/8 border-l-2 border-l-primary' : 'hover:bg-muted/50'
               }`}
             >
               {/* Thumbnail */}
@@ -186,9 +188,7 @@ export default function PlaceSidebar({ places, selectedPlace, onSelectPlace }: P
       </div>
 
       {/* Toast popup on pin/card click */}
-      {toastPlace && (
-        <PlaceToastCard place={toastPlace} onClose={() => setToastPlace(null)} />
-      )}
+      {toastPlace && <PlaceToastCard place={toastPlace} onClose={() => setToastPlace(null)} />}
     </>
   );
 }
