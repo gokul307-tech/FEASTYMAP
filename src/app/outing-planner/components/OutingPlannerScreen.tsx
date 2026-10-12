@@ -5,7 +5,7 @@ import PlannerStepOne from './PlannerStepOne';
 import PlannerStepTwo from './PlannerStepTwo';
 import PlannerItinerary from './PlannerItinerary';
 import type { PlannerFormData, GeneratedItinerary } from './plannerTypes';
-import { generateItinerary } from './iteneraryEngine';
+import { generateItinerary } from './itineraryEngine';
 
 const STEPS = [
   { id: 1, label: 'Your Preferences', icon: Users },
@@ -18,6 +18,7 @@ export default function OutingPlannerScreen() {
   const [formData, setFormData] = useState<PlannerFormData | null>(null);
   const [itinerary, setItinerary] = useState<GeneratedItinerary | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState<string | null>(null);
 
   const handleStep1Submit = (data: PlannerFormData) => {
     setFormData(data);
@@ -34,11 +35,19 @@ export default function OutingPlannerScreen() {
 
   const handleGenerate = (data: PlannerFormData) => {
     setIsGenerating(true);
+    setGenerationError(null);
     // BACKEND INTEGRATION POINT: POST /api/itinerary/generate with data
     setTimeout(() => {
       const result = generateItinerary(data);
       setItinerary(result);
-      setCurrentStep(3);
+      if (result) {
+        setCurrentStep(3);
+      } else {
+        setGenerationError(
+          'No suitable itinerary fits all of your current preferences, budget, and time. Try increasing the budget or duration, choosing a broader cuisine, or changing transport.'
+        );
+        setCurrentStep(data.groupMode ? 2 : 1);
+      }
       setIsGenerating(false);
     }, 1800);
   };
@@ -47,6 +56,7 @@ export default function OutingPlannerScreen() {
     setCurrentStep(1);
     setFormData(null);
     setItinerary(null);
+    setGenerationError(null);
   };
 
   return (
@@ -55,13 +65,16 @@ export default function OutingPlannerScreen() {
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
           <Route size={18} className="text-primary" />
-          <p className="text-xs font-semibold text-primary uppercase tracking-widest">Outing Planner</p>
+          <p className="text-xs font-semibold text-primary uppercase tracking-widest">
+            Outing Planner
+          </p>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground">
           Plan your perfect outing
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Tell us your preferences — we'll build a personalised multi-stop itinerary with a full cost breakdown.
+          Tell us your preferences — we&apos;ll build a personalised multi-stop itinerary with a
+          full cost breakdown from sample places.
         </p>
       </div>
 
@@ -78,8 +91,8 @@ export default function OutingPlannerScreen() {
                     isCompleted
                       ? 'bg-positive text-white'
                       : isCurrent
-                      ? 'bg-primary text-primary-foreground ring-4 ring-primary/20'
-                      : 'bg-muted text-muted-foreground'
+                        ? 'bg-primary text-primary-foreground ring-4 ring-primary/20'
+                        : 'bg-muted text-muted-foreground'
                   }`}
                 >
                   {isCompleted ? '✓' : step.id}
@@ -105,6 +118,11 @@ export default function OutingPlannerScreen() {
       </div>
 
       {/* Step content */}
+      {generationError && (
+        <div className="mb-6 max-w-2xl rounded-xl border border-warning/30 bg-warning-bg p-4 text-sm text-warning">
+          {generationError}
+        </div>
+      )}
       {currentStep === 1 && (
         <PlannerStepOne onSubmit={handleStep1Submit} isLoading={isGenerating} />
       )}
@@ -117,11 +135,7 @@ export default function OutingPlannerScreen() {
         />
       )}
       {currentStep === 3 && itinerary && formData && (
-        <PlannerItinerary
-          itinerary={itinerary}
-          formData={formData}
-          onReset={handleReset}
-        />
+        <PlannerItinerary itinerary={itinerary} formData={formData} onReset={handleReset} />
       )}
 
       {/* Generating overlay */}
@@ -133,7 +147,8 @@ export default function OutingPlannerScreen() {
             </div>
             <h3 className="text-xl font-bold text-foreground mb-2">Building your itinerary…</h3>
             <p className="text-sm text-muted-foreground mb-6">
-              Matching places to your preferences, checking offer windows, and calculating the best route.
+              Matching places to your preferences, checking offer windows, and calculating the best
+              route.
             </p>
             <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
               <div className="h-full bg-primary rounded-full animate-pulse-soft w-2/3" />
