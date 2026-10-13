@@ -54,7 +54,9 @@ export default function PlaceCard({ place, compact = false }: PlaceCardProps) {
       {/* Content */}
       <div className="p-4">
         <div className="flex items-start justify-between gap-2 mb-1.5">
-          <h3 className={`font-semibold text-foreground leading-tight line-clamp-1 ${compact ? 'text-sm' : 'text-base'}`}>
+          <h3
+            className={`font-semibold text-foreground leading-tight line-clamp-1 ${compact ? 'text-sm' : 'text-base'}`}
+          >
             {place.name}
           </h3>
           <PriceBadge priceRange={place.priceRange} />

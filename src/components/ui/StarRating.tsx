@@ -16,11 +16,15 @@ export default function StarRating({ rating, reviewCount, size = 'md' }: StarRat
           <Star
             key={`star-${i}`}
             size={starSize}
-            className={i < Math.floor(rating) ? 'text-amber-400 fill-amber-400' : 'text-border fill-border'}
+            className={
+              i < Math.floor(rating) ? 'text-amber-400 fill-amber-400' : 'text-border fill-border'
+            }
           />
         ))}
       </div>
-      <span className={`font-mono-data font-semibold text-foreground ${size === 'sm' ? 'text-xs' : 'text-sm'}`}>
+      <span
+        className={`font-mono-data font-semibold text-foreground ${size === 'sm' ? 'text-xs' : 'text-sm'}`}
+      >
         {rating.toFixed(1)}
       </span>
       {reviewCount !== undefined && (

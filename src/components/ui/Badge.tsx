@@ -25,7 +25,8 @@ export function CategoryBadge({ category, size = 'md' }: BadgeProps) {
 }
 
 interface StatusBadgeProps {
-  status: 'open' | 'closed' | 'live' | 'upcoming' | 'expired' | 'pending' | 'confirmed' | 'declined';
+  status:
+    'open' | 'closed' | 'live' | 'upcoming' | 'expired' | 'pending' | 'confirmed' | 'declined';
 }
 
 const STATUS_MAP = {
@@ -42,7 +43,9 @@ const STATUS_MAP = {
 export function StatusBadge({ status }: StatusBadgeProps) {
   const cfg = STATUS_MAP[status];
   return (
-    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${cfg.className}`}>
+    <span
+      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${cfg.className}`}
+    >
       {(status === 'open' || status === 'live') && (
         <span className="w-1.5 h-1.5 rounded-full bg-positive animate-pulse-soft" />
       )}
