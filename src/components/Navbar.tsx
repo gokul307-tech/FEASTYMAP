@@ -42,9 +42,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-card/95 backdrop-blur-md border-b border-border shadow-sm'
-          : 'bg-transparent'
+        scrolled ? 'bg-card/95 backdrop-blur-md border-b border-border shadow-sm' : 'bg-transparent'
       }`}
     >
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
@@ -60,14 +58,15 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             {NAV_LINKS?.map((link) => {
-              const isActive = link?.href !== '#offers' && (pathname === link?.href);
+              const isActive = link?.href !== '#offers' && pathname === link?.href;
               return (
                 <Link
                   key={`nav-${link?.href}`}
                   href={link?.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                     isActive
-                      ? 'bg-primary/10 text-primary' :'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
                   {link?.label}
@@ -117,7 +116,8 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-primary/10 text-primary' :'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
                   <link.icon size={16} />
