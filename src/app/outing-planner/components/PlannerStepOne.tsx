@@ -2,8 +2,17 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Users, IndianRupee, Clock, UtensilsCrossed, Flame,
-  Car, AlarmClock, ChevronRight, Loader2, ToggleLeft, ToggleRight,
+  Users,
+  IndianRupee,
+  Clock,
+  UtensilsCrossed,
+  Flame,
+  Car,
+  AlarmClock,
+  ChevronRight,
+  Loader2,
+  ToggleLeft,
+  ToggleRight,
 } from 'lucide-react';
 import type { PlannerFormData } from './plannerTypes';
 
@@ -13,7 +22,14 @@ interface Props {
 }
 
 const CUISINE_OPTIONS = [
-  'Any', 'South Indian', 'North Indian', 'Chinese', 'Continental', 'Mughlai', 'Street Food', 'Mediterranean',
+  'Any',
+  'South Indian',
+  'North Indian',
+  'Chinese',
+  'Continental',
+  'Mughlai',
+  'Street Food',
+  'Mediterranean',
 ];
 
 const TRANSPORT_OPTIONS = [
@@ -104,10 +120,13 @@ export default function PlannerStepOne({ onSubmit, isLoading }: Props) {
               Total Budget
             </label>
             <p className="text-xs text-muted-foreground mb-3">
-              For the entire group (₹{Math.round(budgetVal / groupSizeVal).toLocaleString()} per person)
+              For the entire group (₹{Math.round(budgetVal / groupSizeVal).toLocaleString()} per
+              person)
             </p>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-bold text-sm">₹</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-bold text-sm">
+                ₹
+              </span>
               <input
                 type="number"
                 {...register('budget', {
@@ -118,9 +137,7 @@ export default function PlannerStepOne({ onSubmit, isLoading }: Props) {
                 className="w-full pl-7 pr-3 py-2.5 bg-input border border-border rounded-lg text-sm font-mono-data font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
-            {errors.budget && (
-              <p className="text-xs text-negative mt-1">{errors.budget.message}</p>
-            )}
+            {errors.budget && <p className="text-xs text-negative mt-1">{errors.budget.message}</p>}
             {/* Quick presets */}
             <div className="flex gap-1.5 mt-2 flex-wrap">
               {[1000, 2000, 3500, 5000].map((preset) => (
@@ -187,15 +204,13 @@ export default function PlannerStepOne({ onSubmit, isLoading }: Props) {
           <p className="text-xs text-muted-foreground mb-3">What are you in the mood for?</p>
           <div className="flex flex-wrap gap-2">
             {CUISINE_OPTIONS.map((c) => (
-              <label
-                key={`cuisine-${c}`}
-                className="cursor-pointer"
-              >
+              <label key={`cuisine-${c}`} className="cursor-pointer">
                 <input type="radio" value={c} {...register('cuisine')} className="sr-only" />
                 <span
                   className={`inline-block px-3 py-1.5 rounded-full text-sm font-medium transition-all border ${
                     watch('cuisine') === c
-                      ? 'bg-primary text-primary-foreground border-primary' :'bg-muted text-muted-foreground border-border hover:border-primary/40'
+                      ? 'bg-primary text-primary-foreground border-primary'
+                      : 'bg-muted text-muted-foreground border-border hover:border-primary/40'
                   }`}
                 >
                   {c}
@@ -219,10 +234,13 @@ export default function PlannerStepOne({ onSubmit, isLoading }: Props) {
                 <button
                   key={`flavor-${f.value}`}
                   type="button"
-                  onClick={() => setValue('flavorPreference', f.value as PlannerFormData['flavorPreference'])}
+                  onClick={() =>
+                    setValue('flavorPreference', f.value as PlannerFormData['flavorPreference'])
+                  }
                   className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-all border ${
                     selectedFlavor === f.value
-                      ? 'bg-primary/10 text-primary border-primary/30' :'bg-muted text-muted-foreground border-border hover:border-primary/30'
+                      ? 'bg-primary/10 text-primary border-primary/30'
+                      : 'bg-muted text-muted-foreground border-border hover:border-primary/30'
                   }`}
                 >
                   <span className="text-base">{f.emoji}</span>
@@ -244,10 +262,13 @@ export default function PlannerStepOne({ onSubmit, isLoading }: Props) {
                 <button
                   key={`transport-${t.value}`}
                   type="button"
-                  onClick={() => setValue('transportMethod', t.value as PlannerFormData['transportMethod'])}
+                  onClick={() =>
+                    setValue('transportMethod', t.value as PlannerFormData['transportMethod'])
+                  }
                   className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all border ${
                     selectedTransport === t.value
-                      ? 'bg-primary/10 text-primary border-primary/30' :'bg-muted text-muted-foreground border-border hover:border-primary/30'
+                      ? 'bg-primary/10 text-primary border-primary/30'
+                      : 'bg-muted text-muted-foreground border-border hover:border-primary/30'
                   }`}
                 >
                   <span className="text-base">{t.emoji}</span>
@@ -267,7 +288,8 @@ export default function PlannerStepOne({ onSubmit, isLoading }: Props) {
                 <p className="text-sm font-semibold text-foreground">Group Mode</p>
               </div>
               <p className="text-xs text-muted-foreground max-w-sm">
-                Each person submits their own preferences — we'll generate one itinerary that works for everyone.
+                Each person submits their own preferences — we&apos;ll generate one itinerary that
+                works for everyone.
               </p>
             </div>
             <button
@@ -286,7 +308,7 @@ export default function PlannerStepOne({ onSubmit, isLoading }: Props) {
           {groupMode && (
             <div className="mt-3 px-3 py-2 bg-accent/10 border border-accent/20 rounded-lg">
               <p className="text-xs text-accent font-medium">
-                ✓ Group Mode on — you'll add each member's preferences in the next step.
+                ✓ Group Mode on — you&apos;ll add each member&apos;s preferences in the next step.
               </p>
             </div>
           )}

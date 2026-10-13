@@ -4,14 +4,26 @@ import Link from 'next/link';
 import AppImage from '@/components/ui/AppImage';
 import { toast } from 'sonner';
 import {
-  Route, RefreshCw, Share2, Download, MapPin, Clock,
-  IndianRupee, Tag, Star, CheckCircle2, AlertTriangle,
-  Calendar, Car, Sparkles, RefreshCcw,
+  Route,
+  RefreshCw,
+  Share2,
+  Download,
+  MapPin,
+  Clock,
+  IndianRupee,
+  Tag,
+  Star,
+  CheckCircle2,
+  AlertTriangle,
+  Calendar,
+  Car,
+  Sparkles,
+  RefreshCcw,
 } from 'lucide-react';
 import type { GeneratedItinerary, PlannerFormData, ItineraryStop } from './plannerTypes';
 import CostBreakdownChart from './CostBreakdownChart';
 import BudgetTracker from './BudgetTracker';
-import ItineraryChatbot from './IteneraryChatbot';
+import ItineraryChatbot from './ItineraryChatbot';
 import { PLACES } from '@/lib/mockData';
 
 interface Props {
@@ -28,7 +40,11 @@ const COST_CAT_COLORS: Record<string, string> = {
 };
 
 const TRANSPORT_EMOJI: Record<string, string> = {
-  walk: '🚶', auto: '🛺', cab: '🚕', bike: '🏍️', own_vehicle: '🚗',
+  walk: '🚶',
+  auto: '🛺',
+  cab: '🚕',
+  bike: '🏍️',
+  own_vehicle: '🚗',
 };
 
 // Find a swap alternative for a stop
@@ -39,7 +55,7 @@ function findAlternative(stop: ItineraryStop, currentStopIds: string[]): Itinera
       p.id !== stop.placeId &&
       !currentStopIds.includes(p.id) &&
       p.isOpenNow &&
-      p.avgCostForTwo <= stop.estimatedCost * 2,
+      p.avgCostForTwo <= stop.estimatedCost * 2
   );
   if (alternatives.length === 0) return null;
   const alt = alternatives[0];
@@ -58,7 +74,8 @@ function findAlternative(stop: ItineraryStop, currentStopIds: string[]): Itinera
     hasOffer: alt.hasOffer,
     offerLabel: alt.offerLabel,
     notes: `Swapped alternative — similar vibe, nearby area.`,
-    reservationAvailable: alt.category === 'restaurant' || alt.category === 'bar' || alt.category === 'cafe',
+    reservationAvailable:
+      alt.category === 'restaurant' || alt.category === 'bar' || alt.category === 'cafe',
   };
 }
 
@@ -66,9 +83,15 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
   const [stops, setStops] = useState<ItineraryStop[]>(itinerary.stops);
 
   // Recalculate totals from current stops
-  const foodTotal = stops.filter((s) => s.costCategory === 'food').reduce((a, s) => a + s.estimatedCost, 0);
-  const shoppingTotal = stops.filter((s) => s.costCategory === 'shopping').reduce((a, s) => a + s.estimatedCost, 0);
-  const entertainmentTotal = stops.filter((s) => s.costCategory === 'entertainment').reduce((a, s) => a + s.estimatedCost, 0);
+  const foodTotal = stops
+    .filter((s) => s.costCategory === 'food')
+    .reduce((a, s) => a + s.estimatedCost, 0);
+  const shoppingTotal = stops
+    .filter((s) => s.costCategory === 'shopping')
+    .reduce((a, s) => a + s.estimatedCost, 0);
+  const entertainmentTotal = stops
+    .filter((s) => s.costCategory === 'entertainment')
+    .reduce((a, s) => a + s.estimatedCost, 0);
   const transportTotal = itinerary.costBreakdown.transport;
   const liveTotal = foodTotal + shoppingTotal + entertainmentTotal + transportTotal;
   const liveSurplus = itinerary.budget - liveTotal;
@@ -78,7 +101,13 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
   const liveItinerary: GeneratedItinerary = {
     ...itinerary,
     stops,
-    costBreakdown: { food: foodTotal, shopping: shoppingTotal, entertainment: entertainmentTotal, transport: transportTotal, total: liveTotal },
+    costBreakdown: {
+      food: foodTotal,
+      shopping: shoppingTotal,
+      entertainment: entertainmentTotal,
+      transport: transportTotal,
+      total: liveTotal,
+    },
     surplus: liveSurplus,
     coveragePercent,
   };
@@ -111,14 +140,15 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
 
   const handleReservation = (stopName: string) => {
     toast.success(`Reservation request sent for ${stopName}`, {
-      description: 'You\'ll receive a confirmation within 15 minutes.',
+      description: "You'll receive a confirmation within 15 minutes.",
     });
   };
 
   // Build cumulative time display
   const [startH, startPeriod] = itinerary.startTime.split(' ');
   const [startHour, startMin] = startH.split(':').map(Number);
-  let runningMinutes = startHour * 60 + startMin + (startPeriod === 'PM' && startHour !== 12 ? 720 : 0);
+  let runningMinutes =
+    startHour * 60 + startMin + (startPeriod === 'PM' && startHour !== 12 ? 720 : 0);
 
   return (
     <div className="space-y-8">
@@ -146,10 +176,15 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
               </span>
               <span className="flex items-center gap-1.5">
                 {TRANSPORT_EMOJI[formData.transportMethod]}
-                {formData.transportMethod === 'walk' ? 'Walking' :
-                 formData.transportMethod === 'auto' ? 'Auto' :
-                 formData.transportMethod === 'cab' ? 'Cab/Ola' :
-                 formData.transportMethod === 'bike' ? 'Bike' : 'Own Car'}
+                {formData.transportMethod === 'walk'
+                  ? 'Walking'
+                  : formData.transportMethod === 'auto'
+                    ? 'Auto'
+                    : formData.transportMethod === 'cab'
+                      ? 'Cab/Ola'
+                      : formData.transportMethod === 'bike'
+                        ? 'Bike'
+                        : 'Own Car'}
               </span>
               <span className="flex items-center gap-1.5">
                 <Route size={13} />
@@ -210,21 +245,19 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
             />
           </div>
           <div className="flex items-center justify-between mt-2">
-            <span className="text-xs text-muted-foreground">
-              {coveragePercent}% of budget used
-            </span>
-            <div className={`flex items-center gap-1.5 text-xs font-semibold ${
-              isOverBudget ? 'text-negative' : 'text-positive'
-            }`}>
+            <span className="text-xs text-muted-foreground">{coveragePercent}% of budget used</span>
+            <div
+              className={`flex items-center gap-1.5 text-xs font-semibold ${
+                isOverBudget ? 'text-negative' : 'text-positive'
+              }`}
+            >
               {isOverBudget ? (
                 <>
-                  <AlertTriangle size={12} />
-                  ₹{Math.abs(liveSurplus).toLocaleString()} over budget
+                  <AlertTriangle size={12} />₹{Math.abs(liveSurplus).toLocaleString()} over budget
                 </>
               ) : (
                 <>
-                  <CheckCircle2 size={12} />
-                  ₹{liveSurplus.toLocaleString()} remaining
+                  <CheckCircle2 size={12} />₹{liveSurplus.toLocaleString()} remaining
                 </>
               )}
             </div>
@@ -250,7 +283,9 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
 
           {stops.length === 0 && (
             <div className="bg-card border border-border rounded-xl p-8 text-center">
-              <p className="text-sm text-muted-foreground mb-3">All stops removed. Replan to start fresh!</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                All stops removed. Replan to start fresh!
+              </p>
               <button
                 onClick={onReset}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:bg-primary/90 active:scale-95 transition-all"
@@ -295,19 +330,23 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
                 <div className="relative z-10 flex gap-4">
                   {/* Step number */}
                   <div className="flex-shrink-0 flex flex-col items-center">
-                    <div className={`w-10 h-10 rounded-full font-bold text-sm flex items-center justify-center shadow-md ${
-                      isStopOptional
-                        ? 'bg-amber-500 text-white shadow-amber-500/25'
-                        : 'bg-primary text-primary-foreground shadow-primary/25'
-                    }`}>
+                    <div
+                      className={`w-10 h-10 rounded-full font-bold text-sm flex items-center justify-center shadow-md ${
+                        isStopOptional
+                          ? 'bg-amber-500 text-white shadow-amber-500/25'
+                          : 'bg-primary text-primary-foreground shadow-primary/25'
+                      }`}
+                    >
                       {idx + 1}
                     </div>
                   </div>
 
                   {/* Stop card */}
-                  <div className={`flex-1 bg-card border rounded-xl overflow-hidden transition-colors ${
-                    isStopOptional ? 'border-amber-300 dark:border-amber-700' : 'border-border'
-                  }`}>
+                  <div
+                    className={`flex-1 bg-card border rounded-xl overflow-hidden transition-colors ${
+                      isStopOptional ? 'border-amber-300 dark:border-amber-700' : 'border-border'
+                    }`}
+                  >
                     {/* Optional banner */}
                     {isStopOptional && (
                       <div className="flex items-center gap-2 px-4 py-2 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800">
@@ -349,13 +388,17 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
                       <div className="flex-1 p-4">
                         <div className="flex items-start justify-between gap-2 mb-1">
                           <div>
-                            <p className="text-sm font-bold text-foreground leading-tight">{stop.placeName}</p>
+                            <p className="text-sm font-bold text-foreground leading-tight">
+                              {stop.placeName}
+                            </p>
                             <div className="flex items-center gap-1 text-muted-foreground mt-0.5">
                               <MapPin size={10} />
                               <span className="text-xs">{stop.area}</span>
                             </div>
                           </div>
-                          <span className={`px-2 py-0.5 rounded-full text-2xs font-semibold flex-shrink-0 ${COST_CAT_COLORS[stop.costCategory]}`}>
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-2xs font-semibold flex-shrink-0 ${COST_CAT_COLORS[stop.costCategory]}`}
+                          >
                             {stop.costCategory}
                           </span>
                         </div>
@@ -371,18 +414,24 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
                           </div>
                           <div className="flex items-center gap-1">
                             <Star size={10} className="text-amber-400 fill-amber-400" />
-                            <span className="font-mono-data text-xs font-semibold text-foreground">{stop.rating}</span>
+                            <span className="font-mono-data text-xs font-semibold text-foreground">
+                              {stop.rating}
+                            </span>
                           </div>
                         </div>
 
                         {/* Notes */}
-                        <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{stop.notes}</p>
+                        <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
+                          {stop.notes}
+                        </p>
 
                         {/* Offer */}
                         {stop.hasOffer && stop.offerLabel && (
                           <div className="flex items-center gap-1.5 mb-3">
                             <Tag size={11} className="text-accent" />
-                            <span className="text-xs font-semibold text-accent">{stop.offerLabel}</span>
+                            <span className="text-xs font-semibold text-accent">
+                              {stop.offerLabel}
+                            </span>
                           </div>
                         )}
 
@@ -419,9 +468,7 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
               <div className="w-6 h-6 rounded-full bg-positive/20 border-2 border-positive flex items-center justify-center">
                 <CheckCircle2 size={12} className="text-positive" />
               </div>
-              <p className="text-sm font-semibold text-positive">
-                Back by {itinerary.endTime} ✓
-              </p>
+              <p className="text-sm font-semibold text-positive">Back by {itinerary.endTime} ✓</p>
             </div>
           )}
         </div>
@@ -449,9 +496,10 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
               ] as const
             ).map((cat) => {
               const amount = liveItinerary.costBreakdown[cat.key];
-              const pct = liveItinerary.costBreakdown.total > 0
-                ? Math.round((amount / liveItinerary.costBreakdown.total) * 100)
-                : 0;
+              const pct =
+                liveItinerary.costBreakdown.total > 0
+                  ? Math.round((amount / liveItinerary.costBreakdown.total) * 100)
+                  : 0;
               return (
                 <div key={`cost-row-${cat.key}`}>
                   <div className="flex items-center justify-between mb-1">
@@ -469,7 +517,9 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
                       style={{ width: `${pct}%` }}
                     />
                   </div>
-                  <p className="text-2xs text-muted-foreground mt-0.5 text-right">{pct}% of spend</p>
+                  <p className="text-2xs text-muted-foreground mt-0.5 text-right">
+                    {pct}% of spend
+                  </p>
                 </div>
               );
             })}
@@ -487,9 +537,11 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
                   ₹{itinerary.budget.toLocaleString()}
                 </span>
               </div>
-              <div className={`flex items-center justify-between mt-1 ${
-                isOverBudget ? 'text-negative' : 'text-positive'
-              }`}>
+              <div
+                className={`flex items-center justify-between mt-1 ${
+                  isOverBudget ? 'text-negative' : 'text-positive'
+                }`}
+              >
                 <span className="text-xs font-semibold">
                   {isOverBudget ? 'Over by' : 'Remaining'}
                 </span>
@@ -510,7 +562,10 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
                 {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
               </span>
               <span className="font-mono-data text-xl font-extrabold text-foreground">
-                ₹{Math.round(liveItinerary.costBreakdown.total / formData.groupSize).toLocaleString()}
+                ₹
+                {Math.round(
+                  liveItinerary.costBreakdown.total / formData.groupSize
+                ).toLocaleString()}
               </span>
             </div>
             <p className="text-xs text-muted-foreground mt-1">each</p>
@@ -522,7 +577,8 @@ export default function PlannerItinerary({ itinerary, formData, onReset }: Props
             <div>
               <p className="text-xs font-semibold text-foreground mb-1">Need help planning?</p>
               <p className="text-2xs text-muted-foreground">
-                Tap the chat button (bottom-right) to ask your outing assistant about budget, stops, offers, or alternatives.
+                Tap the chat button (bottom-right) to ask your outing assistant about budget, stops,
+                offers, or alternatives.
               </p>
             </div>
           </div>

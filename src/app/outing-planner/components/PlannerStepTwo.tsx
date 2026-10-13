@@ -12,7 +12,14 @@ interface Props {
 }
 
 const FLAVOR_OPTIONS = ['any', 'spicy', 'sweet', 'mild'] as const;
-const CUISINE_OPTIONS = ['Any', 'South Indian', 'North Indian', 'Chinese', 'Continental', 'Street Food'];
+const CUISINE_OPTIONS = [
+  'Any',
+  'South Indian',
+  'North Indian',
+  'Chinese',
+  'Continental',
+  'Street Food',
+];
 
 interface MemberFormValues {
   name: string;
@@ -33,7 +40,12 @@ export default function PlannerStepTwo({ baseData, onSubmit, onBack, isLoading }
   ]);
   const [showAddForm, setShowAddForm] = useState(false);
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<MemberFormValues>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<MemberFormValues>({
     defaultValues: { name: '', cuisine: 'Any', flavorPreference: 'any', dietaryRestriction: '' },
   });
 
@@ -67,8 +79,8 @@ export default function PlannerStepTwo({ baseData, onSubmit, onBack, isLoading }
           <h2 className="text-base font-bold text-foreground">Group Members</h2>
         </div>
         <p className="text-xs text-muted-foreground mb-5">
-          Add each person's preferences. The itinerary will balance everyone's choices.
-          ({members.length}/{baseData.groupSize} added)
+          Add each person&apos;s preferences. The itinerary will balance everyone&apos;s choices. (
+          {members.length}/{baseData.groupSize} added)
         </p>
 
         {/* Member cards */}
@@ -105,7 +117,10 @@ export default function PlannerStepTwo({ baseData, onSubmit, onBack, isLoading }
 
         {/* Add member form */}
         {showAddForm ? (
-          <form onSubmit={handleSubmit(addMember)} className="border border-border rounded-xl p-4 bg-background space-y-3">
+          <form
+            onSubmit={handleSubmit(addMember)}
+            className="border border-border rounded-xl p-4 bg-background space-y-3"
+          >
             <p className="text-sm font-semibold text-foreground mb-3">Add a member</p>
 
             <div>
@@ -127,7 +142,9 @@ export default function PlannerStepTwo({ baseData, onSubmit, onBack, isLoading }
                   className="w-full px-3 py-2 bg-input border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {CUISINE_OPTIONS.map((c) => (
-                    <option key={`mem-cuisine-${c}`} value={c}>{c}</option>
+                    <option key={`mem-cuisine-${c}`} value={c}>
+                      {c}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -138,7 +155,9 @@ export default function PlannerStepTwo({ baseData, onSubmit, onBack, isLoading }
                   className="w-full px-3 py-2 bg-input border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {FLAVOR_OPTIONS.map((f) => (
-                    <option key={`mem-flavor-${f}`} value={f}>{f}</option>
+                    <option key={`mem-flavor-${f}`} value={f}>
+                      {f}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -167,7 +186,10 @@ export default function PlannerStepTwo({ baseData, onSubmit, onBack, isLoading }
               </button>
               <button
                 type="button"
-                onClick={() => { setShowAddForm(false); reset(); }}
+                onClick={() => {
+                  setShowAddForm(false);
+                  reset();
+                }}
                 className="px-4 py-2 bg-muted text-muted-foreground rounded-lg text-sm font-medium hover:bg-muted/70 transition-all"
               >
                 Cancel
