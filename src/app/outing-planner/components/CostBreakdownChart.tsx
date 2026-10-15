@@ -9,9 +9,8 @@ interface Props {
 }
 
 const CHART_COLORS = ['#F97316', '#0D9488', '#6366F1', '#D97706'];
-const LABELS = ['Food', 'Transport', 'Entertainment', 'Shopping'];
 
-export default function CostBreakdownChart({ breakdown, budget }: Props) {
+export default function CostBreakdownChart({ breakdown }: Props) {
   const data = [
     { name: 'Food', value: breakdown.food },
     { name: 'Transport', value: breakdown.transport },

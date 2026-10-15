@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { MapPin, Navigation, Loader2, AlertCircle } from 'lucide-react';
+import type { Map as LeafletMap, Marker } from 'leaflet';
 import { CATEGORY_CONFIG } from '@/lib/mockData';
 import type { Place, TimeSlot } from '@/lib/mockData';
 
@@ -38,9 +39,9 @@ export default function MapCanvas({
   activeTimeSlot,
 }: MapCanvasProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null);
-  const markersRef = useRef<any[]>([]);
-  const userMarkerRef = useRef<any>(null);
+  const mapRef = useRef<LeafletMap | null>(null);
+  const markersRef = useRef<Marker[]>([]);
+  const userMarkerRef = useRef<Marker | null>(null);
   const isInitializingRef = useRef(false);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [locationStatus, setLocationStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
@@ -69,7 +70,7 @@ export default function MapCanvas({
     if (!mapContainerRef.current || mapRef.current || isInitializingRef.current) return;
 
     // Check if container already has a Leaflet instance attached
-    if ((mapContainerRef.current as any)._leaflet_id) return;
+    if ('_leaflet_id' in mapContainerRef.current) return;
 
     isInitializingRef.current = true;
 
@@ -83,7 +84,7 @@ export default function MapCanvas({
           isInitializingRef.current = false;
           return;
         }
-        if ((mapContainerRef.current as any)._leaflet_id) {
+        if ('_leaflet_id' in mapContainerRef.current) {
           isInitializingRef.current = false;
           return;
         }
@@ -118,7 +119,7 @@ export default function MapCanvas({
         map.on('moveend', updateBounds);
         map.on('zoomend', updateBounds);
         updateBounds();
-      } catch (err) {
+      } catch {
         isInitializingRef.current = false;
       }
     };
@@ -186,7 +187,7 @@ export default function MapCanvas({
       });
 
       userMarkerRef.current = L.marker(userLocation, { icon: pulseIcon })
-        .addTo(mapRef.current)
+        .addTo(mapRef.current!)
         .bindPopup('<b>📍 You are here</b>');
     };
 
@@ -282,7 +283,7 @@ export default function MapCanvas({
           popupAnchor: [0, -46],
         });
 
-        const marker = L.marker(coords, { icon }).addTo(mapRef.current).bindPopup(`
+        const marker = L.marker(coords, { icon }).addTo(mapRef.current!).bindPopup(`
             <div style="min-width:180px;font-family:inherit;">
               <p style="font-weight:700;font-size:14px;margin:0 0 4px;">${place.name}</p>
               <p style="font-size:12px;color:#6b7280;margin:0 0 4px;">${place.area} · ${cfg.label}</p>

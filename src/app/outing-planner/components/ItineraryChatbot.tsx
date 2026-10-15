@@ -258,11 +258,7 @@ const INITIAL_MESSAGE: Message = {
   suggestions: ['Check my budget', 'Show all stops', 'Any offers today?', 'How long is my outing?'],
 };
 
-export default function ItineraryChatbot({
-  itinerary,
-  formData,
-  onRemoveStop,
-}: ItineraryChatbotProps) {
+export default function ItineraryChatbot({ itinerary, formData }: ItineraryChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [inputValue, setInputValue] = useState('');
