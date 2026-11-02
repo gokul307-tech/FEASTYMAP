@@ -1,9 +1,0 @@
-.env
-.env.local
-.venv/
-__pycache__/
-.pytest_cache/
-node_modules/
-.next/
-.neon
-.backup-before-osm-20261101.zip

@@ -15,11 +15,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Local environment files may contain provider credentials.
-.env
-.env.*
-!.env.example
-
 # OS-specific files
 .DS_Store
 Thumbs.db
