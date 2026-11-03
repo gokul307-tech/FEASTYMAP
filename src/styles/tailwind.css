@@ -19,6 +19,8 @@
   --input: #f5f0eb;
   --ring: #f97316;
   --radius: 12px;
+  --font-plus-jakarta-sans: 'Plus Jakarta Sans';
+  --font-ibm-plex-mono: 'IBM Plex Mono';
   --font-sans: var(--font-plus-jakarta-sans), sans-serif;
   --font-mono: var(--font-ibm-plex-mono), monospace;
 

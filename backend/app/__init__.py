@@ -1,0 +1,1 @@
+"""FEASTYmap FastAPI application package."""

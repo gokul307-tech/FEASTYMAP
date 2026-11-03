@@ -5,7 +5,7 @@ import PlannerStepOne from './PlannerStepOne';
 import PlannerStepTwo from './PlannerStepTwo';
 import PlannerItinerary from './PlannerItinerary';
 import type { PlannerFormData, GeneratedItinerary } from './plannerTypes';
-import { generateItinerary } from './itineraryEngine';
+import { PLACES } from '@/lib/mockData';
 
 const STEPS = [
   { id: 1, label: 'Your Preferences', icon: Users },
@@ -33,12 +33,23 @@ export default function OutingPlannerScreen() {
     handleGenerate(data);
   };
 
-  const handleGenerate = (data: PlannerFormData) => {
+  const handleGenerate = async (data: PlannerFormData) => {
     setIsGenerating(true);
     setGenerationError(null);
-    // BACKEND INTEGRATION POINT: POST /api/itinerary/generate with data
-    setTimeout(() => {
-      const result = generateItinerary(data);
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+      const response = await fetch(`${apiUrl}/api/itinerary/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formData: data, places: PLACES }),
+        cache: 'no-store',
+      });
+
+      if (!response.ok) {
+        throw new Error(`Itinerary service returned HTTP ${response.status}`);
+      }
+
+      const result = (await response.json()) as GeneratedItinerary | null;
       setItinerary(result);
       if (result) {
         setCurrentStep(3);
@@ -48,8 +59,14 @@ export default function OutingPlannerScreen() {
         );
         setCurrentStep(data.groupMode ? 2 : 1);
       }
+    } catch {
+      setGenerationError(
+        'Could not reach the planner service. Start the backend from the backend folder, then try again.'
+      );
+      setCurrentStep(data.groupMode ? 2 : 1);
+    } finally {
       setIsGenerating(false);
-    }, 1800);
+    }
   };
 
   const handleReset = () => {

@@ -25,6 +25,25 @@ A modern Next.js 15 application built with TypeScript and Tailwind CSS.
   ```
 3. Open [http://localhost:4028](http://localhost:4028) with your browser to see the result.
 
+For OneDrive workspaces, keep development output separate from production builds:
+
+```powershell
+$env:DIST_DIR = ".next-dev"
+npm run dev
+```
+
+## Backend API
+
+The outing planner uses the FastAPI service in `backend/`. In a second terminal, start it with:
+
+```powershell
+cd backend
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+The API health check is available at [http://127.0.0.1:8000/api/health](http://127.0.0.1:8000/api/health), and interactive documentation is at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
 ## 📁 Project Structure
 
 ```
